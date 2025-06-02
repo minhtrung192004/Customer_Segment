@@ -31,7 +31,7 @@ Hiểu được hành vi khách hàng là yếu tố then chốt giúp doanh ngh
 
 ### 3. Phân khúc Khách hàng (Customer Segmentation)
 
-Sau quá trình xử lý dữ liệu và tính toán RFM (Recency – Frequency – Monetary), nhóm thực hiện:
+Sau quá trình xử lý dữ liệu và tính toán RFM (Recency – Frequency – Monetary), thực hiện:
 - Chuẩn hóa dữ liệu RFM và các thuộc tính nhân khẩu học.
 - Áp dụng **PCA** để giảm chiều dữ liệu nhằm tăng hiệu quả phân cụm.
 - Sử dụng **KMeans** (với k = 4, xác định bằng Elbow Method và xác nhận bằng TSNE) để phân nhóm khách hàng.
