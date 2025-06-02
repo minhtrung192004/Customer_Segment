@@ -1,23 +1,14 @@
 # 📊 PHÂN KHÚC KHÁCH HÀNG  VÀ ĐỀ XUẤ CHIẾN LƯỢC KINH DOANH DỰA TRÊN RFM, PCA VÀ PHÂN TICH CORHORT
-
 Dự án này phân tích dữ liệu giao dịch và nhân khẩu học của khách hàng từ một công ty bán lẻ xe đạp tại Úc, nhằm khám phá các nhóm khách hàng chính, theo dõi hành vi tiêu dùng và đề xuất các chiến lược marketing dựa trên dữ liệu.
-
 ## 📁 Tổng Quan Dự Án
-
 - **Mục tiêu**: Phân khúc khách hàng, phân tích hành vi và xây dựng chiến lược giữ chân, marketing cá nhân hóa.
 - **Dữ liệu**: Giao dịch, thông tin nhân khẩu học, địa chỉ khách hàng và khách hàng mới (năm 2017).
 - **Công cụ sử dụng**: Python, Power BI, PCA, KMeans, RFM, phân tích cohort.
-
 ## 📌 Cấu Trúc Dự Án
-
 ### 1. 🏢 Bối Cảnh
-
 Hiểu được hành vi khách hàng là yếu tố then chốt giúp doanh nghiệp cạnh tranh và phát triển bền vững. Dự án áp dụng các kỹ thuật phân tích dữ liệu hiện đại (RFM, PCA, KMeans, Cohort Analysis) để khám phá các nhóm khách hàng, theo dõi tỷ lệ giữ chân và hỗ trợ quyết định chiến lược cho doanh nghiệp.
-
 ### 2. Làm Sạch Dữ Liệu
-
 **Các bộ dữ liệu được xử lý gồm:**
-
 #### a. `Transactions`
 - Không có dòng trùng lặp;
 - Loại bỏ dòng thiếu giá trị (`brand`, `product_line`, `standard_cost`);
