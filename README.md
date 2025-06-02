@@ -79,12 +79,93 @@ Trực quan hóa bằng:
 
 ---
 
-### 5. 🤖 Dự Đoán Phân Khúc Cho Khách Hàng Mới
+### 🧠 5. Mô hình hóa & Dự đoán khách hàng mới
 
-- **Xử lý đặc trưng**: One-hot encoding, scaling dữ liệu.
-- **Huấn luyện mô hình**:
-  - Logistic Regression, Random Forest, XGBoost, MLP
-  - Đánh giá: Accuracy, F1-score, AUC
-- **Kết quả**:
-  - Dự đoán nhóm khách hàng tiềm năng từ dữ liệu mới.
-  - Giải thích độ quan trọng của biến bằng SHAP (XGBoost)
+#### 5.1. Mô hình dữ liệu và Pipeline
+- Dữ liệu được chia thành tập huấn luyện (80%) và kiểm tra (20%).
+- Sử dụng `ColumnTransformer` để chuẩn hóa và mã hóa đặc trưng (standardization cho biến số, One-Hot Encoding cho biến phân loại).
+- Tối ưu hóa hyperparameter thông qua `GridSearchCV` (cho Logistic Regression, MLP) và `RandomizedSearchCV` (cho Random Forest, XGBoost, HistGradientBoosting).
+
+---
+
+#### 5.2. Các mô hình sử dụng
+| Mô hình                     | Kỹ thuật tối ưu             | Cross-validation Score |
+|-----------------------------|------------------------------|-------------------------|
+| Logistic Regression         | GridSearchCV                 | 0.7563                  |
+| Random Forest               | RandomizedSearchCV           | 0.9718                  |
+| HistGradientBoosting        | RandomizedSearchCV           | 0.9820                  |
+| XGBoost                     | RandomizedSearchCV           | 0.9586                  |
+| MLP Classifier              | GridSearchCV                 | 0.9738                  |
+
+---
+
+#### 5.3. Kết quả huấn luyện các mô hình
+
+| Mô hình                     | Accuracy (Train) | Accuracy (Test) | CV Score |
+|-----------------------------|------------------|------------------|----------|
+| Logistic Regression         | 75.64%           | 75.40%           | 75.63%   |
+| Random Forest               | 99.40%           | 98.03%           | 97.18%   |
+| HistGradientBoosting        | 99.92%           | 99.02%           | 98.20%   |
+| XGBoost                     | 98.71%           | 96.33%           | 95.86%   |
+| MLP Classifier              | 99.22%           | 97.93%           | 97.38%   |
+
+🎯 **Nhận xét**:
+- HistGradientBoosting và Random Forest đạt hiệu suất cao, không bị overfitting.
+- XGBoost có dấu hiệu overfitting nhẹ.
+- Logistic Regression cho kết quả thấp nhất, phù hợp với mô hình baseline.
+
+---
+
+#### 5.4. Hyperparameter Tối ưu
+
+| Mô hình                     | Hyperparameter                          | Giá trị tối ưu                                   |
+|-----------------------------|------------------------------------------|--------------------------------------------------|
+| **Logistic Regression**     | `penalty`                                | `'l1'`                                           |
+|                             | `C`                                      | `10`                                             |
+|                             | `solver`                                 | `'liblinear'`                                    |
+| **Random Forest**           | `n_estimators`                           | `204`                                            |
+|                             | `criterion`                              | `'entropy'`                                      |
+|                             | `max_depth`                              | `18`                                             |
+|                             | `max_features`                           | `'log2'`                                         |
+|                             | `min_samples_split`                      | `7`                                              |
+|                             | `min_samples_leaf`                       | `1`                                              |
+| **HistGradientBoosting**    | `learning_rate`                          | `0.6799`                                         |
+|                             | `l2_regularization`                      | `0.2293`                                         |
+|                             | `max_leaf_nodes`                         | `119`                                            |
+|                             | `min_samples_leaf`                       | `36`                                             |
+|                             | `max_bins`                               | `74`                                             |
+| **XGBoost**                 | `colsample_bytree`                       | `0.9212`                                         |
+|                             | `gamma`                                  | `0.416`                                          |
+|                             | `learning_rate`                          | `0.2391`                                         |
+|                             | `max_depth`                              | `4`                                              |
+|                             | `n_estimators`                           | `298`                                            |
+|                             | `reg_alpha`                              | `0.1942`                                         |
+|                             | `reg_lambda`                             | `0.5725`                                         |
+|                             | `subsample`                              | `0.5479`                                         |
+| **MLP Classifier**          | `hidden_layer_sizes`                     | `(100, 50)`                                      |
+|                             | `activation`                             | `'tanh'`                                         |
+|                             | `alpha`                                  | `0.01`                                           |
+|                             | `solver`                                 | `'adam'`                                         |
+
+---
+
+#### 5.5. Đánh giá mô hình bằng ROC & Classification Report
+
+- **HistGradientBoosting** và **Random Forest** có AUC gần 1.000 cho tất cả các lớp → mô hình ổn định, tổng quát tốt.
+- **XGBoost** đạt AUC cao ở lớp 0 và 1, giảm nhẹ ở lớp 2 và 3.
+- **MLP Classifier** hoạt động tốt ở lớp phổ biến, nhưng có sự giảm nhẹ ở lớp ít dữ liệu.
+- **Logistic Regression** có AUC thấp, đặc biệt là lớp 2 chỉ đạt 0.7452 → hiệu suất kém hơn hẳn.
+
+---
+
+#### 5.6. Dự đoán khách hàng mới
+
+- Mô hình XGBoost dự đoán hiệu quả các phân khúc khách hàng mới dựa trên hành vi và đặc điểm nhân khẩu học.
+- Nhóm khách hàng tiềm năng (high-value) có giá trị tài sản cao và thời gian gắn bó dài, cho thấy tính khả thi trong việc phát triển chiến lược chăm sóc cá nhân hóa.
+
+---
+
+✅ **Kết luận**:
+- **HistGradientBoosting** là lựa chọn tốt nhất trong bài toán phân khúc khách hàng mới.
+- Mô hình có độ chính xác cao, khả năng tổng quát tốt và tránh overfitting.
+
