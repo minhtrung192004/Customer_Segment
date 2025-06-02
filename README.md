@@ -51,7 +51,7 @@ Kết quả cho ra **4 nhóm khách hàng chính**, mỗi nhóm có những đ�
 - **Chiến lược gợi ý**:
   - Duy trì lòng trung thành bằng các chương trình tích điểm, quà tặng tri ân, hoặc ưu đãi định kỳ.
   - Tăng tương tác thông qua email marketing, ưu đãi theo hành vi.
-  - 
+  
 #### 🟩 Nhóm 1 – Khách hàng mới tiềm năng (New Customers)
 
 - **Recency**: Thấp (giao dịch gần đây)
