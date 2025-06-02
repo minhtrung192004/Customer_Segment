@@ -25,28 +25,24 @@ Hiểu được hành vi khách hàng là yếu tố then chốt giúp doanh ngh
 **Các bộ dữ liệu được xử lý gồm:**
 
 #### a. `Transactions`
-- Không có dòng trùng lặp.
-- Loại bỏ dòng thiếu giá trị (`brand`, `product_line`, `standard_cost`).
-- Chuẩn hóa cột ngày (`transaction_date`) thành định dạng thời gian.
+- Không có dòng trùng lặp;
+- Loại bỏ dòng thiếu giá trị (`brand`, `product_line`, `standard_cost`);
+- Chuẩn hóa cột ngày (`transaction_date`) thành định dạng thời gian;
 - Tính toán biên lợi nhuận (`profit_margin`).
 
 #### b. `Customer Demographic`
-- Thay thế giá trị thiếu trong `job_title`, `industry_category` bằng “Others”.
-- Loại bỏ khách hàng có `DOB` bất hợp lý (năm 1843) và `gender = "U"`.
+- Thay thế giá trị thiếu trong `job_title`, `industry_category` bằng “Others”;
+- Loại bỏ khách hàng có `DOB` bất hợp lý (năm 1843) và `gender = "U"`;
 - Tính thêm biến `customer_age`, `customer_value_score`.
 
 #### c. `Customer Address`
-- Gộp với bảng demographic qua `customer_id`.
+- Gộp với bảng demographic qua `customer_id`;
 - Dùng `postcode` và `property_valuation` để phân vùng theo địa lý.
 
 #### d. `New Customer List`
-- Làm sạch tương tự bảng nhân khẩu học.
-- Loại bỏ dòng chứa giá trị sai định dạng.
+- Làm sạch tương tự bảng nhân khẩu học;
+- Loại bỏ dòng chứa giá trị sai định dạng;
 - Chuẩn hóa để sẵn sàng dự đoán phân khúc.
-
-Tất cả dữ liệu sau xử lý được gộp thành:
-- `customer_behavior_df`: dùng để phân tích và phân cụm
-- `new_customers_df`: dùng để dự đoán nhóm khách hàng mới
 
 ---
 
@@ -92,20 +88,3 @@ Trực quan hóa bằng:
 - **Kết quả**:
   - Dự đoán nhóm khách hàng tiềm năng từ dữ liệu mới.
   - Giải thích độ quan trọng của biến bằng SHAP (XGBoost)
-
----
-
-## 🛠 Công Cụ & Kỹ Thuật
-
-- Python: pandas, numpy, scikit-learn, seaborn, matplotlib  
-- Power BI: trực quan hóa và kể chuyện bằng dữ liệu  
-- Jupyter Notebook  
-- Git: quản lý phiên bản
-
----
-
-## 👥 Thành Viên & Cảm Ơn
-
-**Nhóm “Đom Đóm” – Đại học Ngoại Thương (CS HCM)**  
-Giảng viên hướng dẫn: **ThS. Võ Hoàng Kim An**  
-Dự án thực hiện cho môn **Phân tích dữ liệu kinh doanh (VJPE205)** – 2025
